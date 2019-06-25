@@ -3,38 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcaixeta <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/19 14:14:16 by gcaixeta          #+#    #+#             */
-/*   Updated: 2018/05/20 22:34:26 by gcaixeta         ###   ########.fr       */
+/*   Created: 2019/05/10 09:55:21 by rquerino          #+#    #+#             */
+/*   Updated: 2019/05/15 11:47:54 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putchar(int e, int x)
+/*
+ ** Outputs the char c to the standard output.
+*/
+
+void	ft_putchar(char c)
 {
-	int i;
-
-	i = 1;
-	while (i <= x)
-	{
-		if ((i == 1) && (e == 1))
-		{
-			write(1, "A", 1);
-		}
-		else if ((i == x) && (e == 1))
-		{
-			write(1, "C", 1);
-		}
-		else if (((i != 1) && (i != x)) && (e == 0))
-		{
-			write(1, " ", 1);
-		}
-		else
-		{
-			write(1, "B", 1);
-		}
-		i++;
-	}
+	ft_putchar_fd(c, 1);
 }
