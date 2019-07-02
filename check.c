@@ -141,3 +141,9 @@ void		ft_positions(char *buff, int *pos)
 		i++;
 	}
 }
+
+int			ft_coords()
+{
+
+	
+}
