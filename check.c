@@ -111,7 +111,7 @@ int			ft_checkconnections(char *buff)
 }
 
 /*
-** Gets the horizontal and verticaul positions of the piece
+** Gets the horizontal and vertical positions of the piece
 ** Stores min horizontal[0], max horizontal[1]
 ** min vertical [2] and max vertical[3]
 */
@@ -141,4 +141,3 @@ void		ft_positions(char *buff, int *pos)
 		i++;
 	}
 }
-
