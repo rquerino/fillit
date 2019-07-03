@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/03 10:22:05 by rquerino          #+#    #+#             */
+/*   Updated: 2019/07/03 11:18:24 by rquerino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
-/* 
+/*
 ** This block of functions will check if the buffer has a valid structure.
 ** Coordinates:
 ** 0  1  2  3  4
 ** 5  6  7  8  9
 ** 10 11 12 13 14
 ** 15 16 17 18 19
-** Characters required: 4: '\n', 4: '#', 12: '.' 
- */
+** Characters required: 4: '\n', 4: '#', 12: '.'
+*/
 
 /*
-** Checks that the piece in the buffer has the correct number of hashtags and dots.
-** All pieces need to have 4 hashtags, the other chars remaining 12 must be dots.
+** Checks that the piece has the correct number of hashtags and dots.
+** All pieces need to have 4 hashtags, the remaining 12 must be dots.
 */
 
 int			ft_checkchars(char *buff)
 {
 	int	dot;
 	int	hashtag;
-    int	i;
+	int	i;
 
 	i = 0;
 	dot = 0;
@@ -96,7 +108,7 @@ int			ft_checkconnections(char *buff)
 				if (buff[i + 1] == '#')
 					c++;
 			if (i % 5 > 0)
-				if (buff[i - 1] == '#')
+				chif (buff[i - 1] == '#')
 					c++;
 			if (i / 5 < 3)
 				if (buff[i + 5] == '#')
@@ -142,8 +154,11 @@ void		ft_positions(char *buff, int *pos)
 	}
 }
 
-int			ft_coords()
+int			ft_ultimatechecker(char *buff)
 {
-
-	
+	if (ft_checkchars(buff) && ft_checkformat(buff) &&
+			ft_checkconnections(buff))
+		return (1);
+	else
+		return (0);
 }
