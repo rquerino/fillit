@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:22:05 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/03 11:18:24 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:35:48 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			ft_checkchars(char *buff)
 
 	i = 0;
 	dot = 0;
-	sharp = 0;
+	hashtag = 0;
 	while (i < 20)
 	{
 		if (buff[i] == '.')
@@ -108,7 +108,7 @@ int			ft_checkconnections(char *buff)
 				if (buff[i + 1] == '#')
 					c++;
 			if (i % 5 > 0)
-				chif (buff[i - 1] == '#')
+				if (buff[i - 1] == '#')
 					c++;
 			if (i / 5 < 3)
 				if (buff[i + 5] == '#')
@@ -156,6 +156,11 @@ void		ft_sizes(char *buff, int *pos)
 	}
 }
 
+/*
+** This function will test a buffer in all the above functions.
+** If any of them fail, returns 0.
+*/
+
 int			ft_ultimatechecker(char *buff)
 {
 	if (ft_checkchars(buff) && ft_checkformat(buff) &&
@@ -163,38 +168,4 @@ int			ft_ultimatechecker(char *buff)
 		return (1);
 	else
 		return (0);
-}
-
-/*
-** This function will return a t_tetr with coordinates x,y and 
-** height/width. X and Y are stored everytime a # is found.
-*/
-
-t_tetr		*ft_atributes(char *buff)
-{
-	t_tetr		*piece;
-	int			pos[4];
-	int			i;
-	int			j;
-
-	i = 0;
-	j = 0;
-	if (!(piece = (t_tetr*)malloc(sizeof(t_tetr))))
-		return (NULL);
-	ft_bzero(piece, sizeof(t_tetr));
-	ft_sizes(buff, pos);
-	piece.width = pos[1] - pos[0] + 1;
-	piece.height = pos[3] - pos[2] + 1;
-	piece.used = 0;
-	while (i < 19)
-	{
-		if (buff[i] == '#')
-		{
-			piece.coords[j].x = i % 5;
-			piece.coords[j].y = i / 5;
-			j++;
-		}
-		++i;
-	}
-	return (piece);
 }
