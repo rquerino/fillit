@@ -126,9 +126,11 @@ int			ft_checkconnections(char *buff)
 ** Gets the horizontal and vertical positions of the piece
 ** Stores min horizontal[0], max horizontal[1]
 ** min vertical [2] and max vertical[3]
+** in that way, pos[1] - pos[0] + 1 will get the width
+** and pos[3] - pos[2] + 1 gets the heigth.
 */
 
-void		ft_positions(char *buff, int *pos)
+void		ft_sizes(char *buff, int *pos)
 {
 	int	i;
 
@@ -161,4 +163,38 @@ int			ft_ultimatechecker(char *buff)
 		return (1);
 	else
 		return (0);
+}
+
+/*
+** This function will return a t_tetr with coordinates x,y and 
+** height/width. X and Y are stored everytime a # is found.
+*/
+
+t_tetr		*ft_atributes(char *buff)
+{
+	t_tetr		*piece;
+	int			pos[4];
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	if (!(piece = (t_tetr*)malloc(sizeof(t_tetr))))
+		return (NULL);
+	ft_bzero(piece, sizeof(t_tetr));
+	ft_sizes(buff, pos);
+	piece.width = pos[1] - pos[0] + 1;
+	piece.height = pos[3] - pos[2] + 1;
+	piece.used = 0;
+	while (i < 19)
+	{
+		if (buff[i] == '#')
+		{
+			piece.coords[j].x = i % 5;
+			piece.coords[j].y = i / 5;
+			j++;
+		}
+		++i;
+	}
+	return (piece);
 }

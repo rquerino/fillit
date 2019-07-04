@@ -30,11 +30,13 @@ typedef struct	s_tetr
 	t_point	**coords;
 	int		height;
 	int		width;
-}
+}				t_tetr;
 
 int		ft_checkchars(char *buff);
 int		ft_checkformat(char *buff);
 int		ft_checkconnections(char *buff);
-void	ft_positions(char *buff, int *pos);
+void	ft_sizes(char *buff, int *pos);
+int		ft_ultimatechecker(char *buff);
+t_tetr	ft_atributes(char *buff);
 
 #endif

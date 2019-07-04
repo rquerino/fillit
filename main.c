@@ -14,7 +14,7 @@
 
 int		main(int argc, char **argv)
 {
-	t_tetr	*pieces;
+	t_tetr	**pieces;
 	char	*buff;
 	int		i;
 	int		order;
@@ -29,10 +29,8 @@ int		main(int argc, char **argv)
 		{
 			if (ft_ultimatechecker(buff))
 			{
-				ft_positions(buff, *pieces[i]); //store coordinates
-				ft_size(buff, *pieces[i]); //store height and width
+				pieces[i] = ft_atributes(buff);
 				pieces[i].id = order;
-				pieces[i].used = 0;
 				i++;
 				order++;
 			}
