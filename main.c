@@ -6,53 +6,12 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:26:09 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/04 17:49:11 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/05 09:29:18 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
-
-/*
-** Reads the fd and store the information on a **t_tetr
-** Returns 0 if an error occurred, or the number of tetriminos added..
-*/
-
-int		ft_createtetr(int fd, t_tetr **pieces)
-{
-	int		i;
-	int		j;
-	char	*str;
-	char	*buff;
-
-	str = ft_strnew(20);
-	i = 0;
-	j = 0;
-	while (get_next_line(fd, &buff) > 0)
-	{
-		if (ft_strlen(buff) > 2)
-		{
-			ft_strcat(str, buff);
-			ft_strcat(str, "\n");
-			if (j == 3)
-			{
-				if (ft_ultimatechecker(str))
-				{
-					pieces[i] = ft_atributes(str);
-					pieces[i]->id = i + 1;
-					i++;
-				}
-				else
-					return (0);
-				j = -1;
-				str = ft_strnew(20);
-			}
-			j++;
-		}
-	}
-	ft_strdel(&str);
-	return (i);
-}
 
 int		main(int argc, char **argv)
 {
