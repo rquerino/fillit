@@ -6,9 +6,11 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 16:33:41 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/04 16:36:13 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:59:52 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fillit.h"
 
 /*
 ** This functions will read the buffer and store the information
