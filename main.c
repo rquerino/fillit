@@ -18,13 +18,30 @@ int		main(int argc, char **argv)
 	t_tetr	**pieces;
 	int		fd;
 	int		i;
+	char	**map;
+	int		x;
+	int		y;
+	int		k;
 
+	x = 0;
+	y = 0;
+	k = 0;
 	if (argc == 2)
 	{
 		pieces = malloc(sizeof(t_tetr*) * 27);
 		fd = open(argv[1], O_RDONLY);
 		if ((i = ft_createtetr(fd, pieces)) > 0)
 		{
+			map = malloc(sizeof(char*) * (i * i) + 1);
+			ft_createmap(ft_sqrsize(i), map);
+			//testing to put a tetrimino in the map
+			while (k++ < 4)
+				printf("%s\n", map[k]);
+			ft_puttetr(pieces[0], map, x, y);
+			k = 0;
+			while (k++ < 4)
+				printf("%s\n", map[k]);
+			/*
 			// Printing atributes
 			i -= 1;
 			while (i > -1)
@@ -38,7 +55,7 @@ int		main(int argc, char **argv)
 				printf("id: %d, used: %d, x: %d, y: %d, height: %d, width: %d\n", pieces[i]->id, pieces[i]->used,
 						pieces[i]->coords[3].x, pieces[i]->coords[3].y, pieces[i]->height, pieces[i]->width);
 			i--;
-			}
+			}*/
 		}
 	}
 	return (0);

@@ -38,5 +38,11 @@ int		ft_checkconnections(char *buff);
 void	ft_sizes(char *buff, int *pos);
 int		ft_ultimatechecker(char *buff);
 t_tetr	*ft_atributes(char *buff);
+int		ft_createtetr(int fd, t_tetr **pieces);
+int		ft_sqrsize(int i);
+void		ft_createmap(int size, char **map);
+int		ft_tetr_hor(t_tetr *piece, int j);
+int		ft_tetr_ver(t_tetr *piece, int j);
+int		ft_puttetr(t_tetr *piece, char **map, int x, int y);
 
 #endif
