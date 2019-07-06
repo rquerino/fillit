@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:13:55 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/04 15:31:56 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:28:34 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ int		ft_ultimatechecker(char *buff);
 t_tetr	*ft_atributes(char *buff);
 int		ft_createtetr(int fd, t_tetr **pieces);
 int		ft_sqrsize(int i);
-void		ft_createmap(int size, char **map);
-int		ft_tetr_hor(t_tetr *piece, int j);
-int		ft_tetr_ver(t_tetr *piece, int j);
+void	ft_createmap(int size, char **map);
+int		ft_tetr_right(t_tetr *piece, int j);
+int		ft_tetr_left(t_tetr *piece, int j);
+int		ft_tetr_down(t_tetr *piece, int j);
+int		ft_piecefits(t_tetr *piece, char **map, int x, int y);
 int		ft_puttetr(t_tetr *piece, char **map, int x, int y);
 
 #endif

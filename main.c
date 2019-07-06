@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:26:09 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/05 09:29:18 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:41:55 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ int		main(int argc, char **argv)
 	t_tetr	**pieces;
 	int		fd;
 	int		i;
-	char	**map;
-	int		x;
-	int		y;
+	char		**map;
 	int		k;
 
-	x = 0;
-	y = 0;
 	k = 0;
 	if (argc == 2)
 	{
@@ -32,15 +28,19 @@ int		main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		if ((i = ft_createtetr(fd, pieces)) > 0)
 		{
-			map = malloc(sizeof(char*) * (i * i) + 1);
+			map = malloc(sizeof(int) * 40);
 			ft_createmap(ft_sqrsize(i), map);
 			//testing to put a tetrimino in the map
+			printf("how many pieces i: %d\n", i);
+			printf("map size x size: %d\n", ft_sqrsize(i));
+			map[0][0] = '1';
 			while (k++ < 4)
 				printf("%s\n", map[k]);
-			ft_puttetr(pieces[0], map, x, y);
-			k = 0;
-			while (k++ < 4)
-				printf("%s\n", map[k]);
+			//ft_puttetr(pieces[0], map, 0, 0);
+			//k = 0;
+			printf("piece fits: %d\n",  ft_piecefits(pieces[0], map, 0, 0));
+			//while (k++ < 4)
+			//	printf("%s\n", map[k]);
 			/*
 			// Printing atributes
 			i -= 1;
