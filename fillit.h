@@ -45,6 +45,7 @@ int		ft_tetr_right(t_tetr *piece, int j);
 int		ft_tetr_left(t_tetr *piece, int j);
 int		ft_tetr_down(t_tetr *piece, int j);
 int		ft_piecefits(t_tetr *piece, char **map, int x, int y);
-int		ft_puttetr(t_tetr *piece, char **map, int x, int y);
+void	ft_puttetr(t_tetr *piece, char **map, int x, int y);
+//int		ft_fillit(t_tetr **pieces, char **map, int size, int n);
 
 #endif
