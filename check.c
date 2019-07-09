@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:22:05 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/04 16:35:48 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/08 15:55:36 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,40 +120,6 @@ int			ft_checkconnections(char *buff)
 		i++;
 	}
 	return (c == 6 || c == 8);
-}
-
-/*
-** Gets the horizontal and vertical positions of the piece
-** Stores min horizontal[0], max horizontal[1]
-** min vertical [2] and max vertical[3]
-** in that way, pos[1] - pos[0] + 1 will get the width
-** and pos[3] - pos[2] + 1 gets the heigth.
-*/
-
-void		ft_sizes(char *buff, int *pos)
-{
-	int	i;
-
-	i = 0;
-	pos[0] = 3;
-	pos[1] = 0;
-	pos[2] = 3;
-	pos[3] = 0;
-	while (i <= 18)
-	{
-		if (buff[i] == '#')
-		{
-			if (i % 5 < pos[0])
-				pos[0] = i % 5;
-			if (i % 5 > pos[1])
-				pos[1] = i % 5;
-			if (i / 5 < pos[2])
-				pos[2] = i / 5;
-			if (i / 5 > pos[3])
-				pos[3] = i / 5;
-		}
-		i++;
-	}
 }
 
 /*
