@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 10:33:35 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/08 17:06:00 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:42:37 by pqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ void	ft_createmap(int size, char **map)
 	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
 	while (j < size)
 	{
-		map[j] = malloc(sizeof(char) * size);
+		map[j] = malloc(size + 1);
+		i = 0;
 		while (i < size)
 		{
 			map[j][i] = '.';
 			i++;
 		}
-		i = 0;
+		map[j][i] = 0;
 		j++;
 	}
+	map[j] = NULL;
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:26:09 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/09 11:45:17 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:42:27 by pqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_main(t_tetr **pieces, char **map, int fd1, int fd2)
 	mapsize = 2;
 	if (fd1 != -1 && (ft_test_and_create(pieces, fd1, fd2)))
 	{
-		map = malloc(sizeof(char) * 100);
+		map = malloc(sizeof(*map) * 11);
 		ft_createmap(10, map);
 		while (ft_fillit(pieces, map, mapsize++, 0) == 0)
 			ft_cleanmap(map, mapsize);
@@ -125,8 +125,7 @@ int		main(int argc, char **argv)
 		map = malloc(sizeof(char) * 100);
 		ft_createmap(10, map);
 		ft_main(pieces, map, fd1, fd2);
-		ft_strdel(map);
-		free(pieces);
+		ft_freeall(map, pieces);
 	}
 	else
 		ft_putstr("Usage: ./fillit <tetriminoes_file>\n");

@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:13:55 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/09 11:18:15 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/10 12:23:09 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void			ft_puttetr(t_tetr *piece, char **map, int x, int y);
 void			ft_cleanpiece(t_tetr *piece, char **map, int size);
 int				ft_checklines(int fd);
 int				ft_test_and_create(t_tetr **pieces, int fd1, int fd2);
+void			ft_freeall(char **map, t_tetr **pieces);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 16:33:41 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/09 11:50:38 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:30:20 by pqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,24 @@ int		ft_createtetr(int fd, t_tetr **pieces)
 	i = 0;
 	j = 0;
 	while (get_next_line(fd, &buff) > 0)
+	{
 		if (ft_strlen(buff) > 2 && (++j || 1))
 		{
 			ft_strcat(ft_strcat(str, buff), "\n");
 			if (j > 0 && j % 4 == 0)
 			{
 				if (ft_ultimatechecker(str) == 0)
+				{
+					ft_strdel(&str);
 					return (0);
+				}
 				pieces[i] = ft_atributes(str, i + 1);
 				i++;
 				ft_bzero(str, 20);
 			}
 		}
+		ft_strdel(&buff);
+	}
 	pieces[i] = NULL;
 	ft_strdel(&str);
 	return (i);
@@ -84,18 +90,23 @@ int		ft_checklines(int fd)
 {
 	char	*buff;
 	int		row;
+	int		error;
 
 	row = 0;
+	error = 0;
 	while (get_next_line(fd, &buff) > 0)
 	{
 		row++;
-		if (row >= 1 && row <= 4 && ft_strlen(buff) != 4)
-			return (0);
-		if (row == 5 & ft_strlen(buff) > 0)
-			return (0);
+		if (row >= 1 && row <= 4 && (ft_strlen(buff) != 4))
+			error = 1;
+		else if (row == 5 && (ft_strlen(buff) > 0))
+			error = 1;
 		if (row == 5)
 			row = 0;
+		free(buff);
 	}
+	if (error == 1)
+		return (0);
 	if (row != 4)
 		return (0);
 	return (1);
@@ -108,4 +119,25 @@ int		ft_test_and_create(t_tetr **pieces, int fd1, int fd2)
 	if (ft_createtetr(fd2, pieces) == 0)
 		return (0);
 	return (1);
+}
+
+void	ft_freeall(char **map, t_tetr **pieces)
+{
+	int i;
+
+	i = 0;
+	while (pieces[i])
+	{
+		free(pieces[i]->coords);
+		free(pieces[i]);
+		i++;
+	}
+	free(pieces);
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }

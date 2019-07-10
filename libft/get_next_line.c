@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 11:55:17 by rquerino          #+#    #+#             */
-/*   Updated: 2019/06/19 13:34:39 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/10 13:28:06 by pqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	ft_read_line(char **str, char **line)
 	if ((*str)[i] == '\n')
 	{
 		*line = ft_strsub(*str, 0, i);
-		tmp = ft_strdup(&((*str)[i + 1]));
-		free(*str);
+		tmp = ft_strdup((*str) + i + 1);
+		ft_strdel(str);
 		*str = tmp;
 		if ((*str)[0] == '\0')
 			ft_strdel(str);
