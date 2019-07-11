@@ -6,7 +6,7 @@
 /*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:13:55 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/10 12:23:09 by rquerino         ###   ########.fr       */
+/*   Updated: 2019/07/11 13:20:18 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int				ft_checkformat(char *buff);
 int				ft_checkconnections(char *buff);
 int				ft_ultimatechecker(char *buff);
 t_tetr			*ft_atributes(char *buff, int id);
+int				ft_cleanandreturn0(char *str);
 int				ft_createtetr(int fd, t_tetr **pieces);
 int				ft_sqrsize(int i);
 void			ft_createmap(int size, char **map);

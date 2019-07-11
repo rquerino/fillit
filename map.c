@@ -6,11 +6,12 @@
 /*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 10:33:35 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/10 13:42:37 by pqueiroz         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:04:39 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 /*
 ** Crates a string **map[size][size]
@@ -50,21 +51,21 @@ int		ft_piecefits(t_tetr *piece, char **map, t_point pos, int mapsize)
 
 	varx = pos.x;
 	vary = pos.y;
-	i = 0;
+	i = -1;
 	if (map[vary][varx] == '.')
 	{
-		while (i <= 3)
+		while (++i <= 3)
 		{
 			if (i > 0)
 			{
 				vary += piece->coords[i].y - piece->coords[i - 1].y;
 				varx += piece->coords[i].x - piece->coords[i - 1].x;
-				if (varx >= mapsize || vary >= mapsize)
+				if (varx >= mapsize || vary >= mapsize
+						|| (varx < 0 || vary < 0))
 					return (0);
 			}
 			if (map[vary][varx] != '.')
 				return (0);
-			i++;
 		}
 		return (1);
 	}
@@ -119,5 +120,36 @@ void	ft_cleanpiece(t_tetr *piece, char **map, int size)
 		}
 		x = 0;
 		y++;
+	}
+}
+
+/*
+** Free the memory of map and pieces
+*/
+
+void	ft_freeall(char **map, t_tetr **pieces)
+{
+	int x;
+
+	if (map)
+	{
+		x = 0;
+		while (map[x])
+		{
+			ft_strdel(&map[x]);
+			x++;
+		}
+		free(map);
+	}
+	if (pieces)
+	{
+		x = 0;
+		while (pieces[x])
+		{
+			free(pieces[x]->coords);
+			free(pieces[x]);
+			x++;
+		}
+		free(pieces);
 	}
 }

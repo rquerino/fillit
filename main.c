@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rquerino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 10:26:09 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/10 13:42:27 by pqueiroz         ###   ########.fr       */
+/*   Updated: 2019/07/11 14:14:53 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,21 +93,30 @@ int		ft_fillit(t_tetr **pieces, char **map, int mapsize, int n)
 	return (0);
 }
 
+/*
+** Main function divided in two.
+*/
+
 void	ft_main(t_tetr **pieces, char **map, int fd1, int fd2)
 {
 	static int	mapsize;
 
 	mapsize = 2;
-	if (fd1 != -1 && (ft_test_and_create(pieces, fd1, fd2)))
+	pieces = malloc(sizeof(*pieces) * 27);
+	if ((ft_test_and_create(pieces, fd1, fd2)))
 	{
-		map = malloc(sizeof(*map) * 11);
+		map = malloc(sizeof(char *) * 11);
 		ft_createmap(10, map);
 		while (ft_fillit(pieces, map, mapsize++, 0) == 0)
 			ft_cleanmap(map, mapsize);
 		ft_printmap(map, mapsize - 1);
+		ft_freeall(map, pieces);
 	}
 	else
+	{
+		free(pieces);
 		ft_putstr("error\n");
+	}
 }
 
 int		main(int argc, char **argv)
@@ -119,13 +128,16 @@ int		main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		pieces = malloc(sizeof(t_tetr*) * 27);
 		fd1 = open(argv[1], O_RDONLY);
 		fd2 = open(argv[1], O_RDONLY);
-		map = malloc(sizeof(char) * 100);
-		ft_createmap(10, map);
+		pieces = NULL;
+		map = NULL;
+		if (fd1 == -1)
+		{
+			ft_putstr("error\n");
+			return (0);
+		}
 		ft_main(pieces, map, fd1, fd2);
-		ft_freeall(map, pieces);
 	}
 	else
 		ft_putstr("Usage: ./fillit <tetriminoes_file>\n");

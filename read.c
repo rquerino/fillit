@@ -6,7 +6,7 @@
 /*   By: pqueiroz <pqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 16:33:41 by rquerino          #+#    #+#             */
-/*   Updated: 2019/07/10 13:30:20 by pqueiroz         ###   ########.fr       */
+/*   Updated: 2019/07/11 12:34:29 by rquerino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** id. X and Y are stored everytime a # is found.
 */
 
-t_tetr	*ft_atributes(char *buff, int id)
+t_tetr	*ft_atributes(char *str, int id)
 {
 	t_tetr		*piece;
 	int			i;
@@ -36,7 +36,7 @@ t_tetr	*ft_atributes(char *buff, int id)
 	piece->id = id;
 	while (i < 20)
 	{
-		if (buff[i] == '#')
+		if (str[i] == '#')
 		{
 			piece->coords[j].x = i % 5;
 			piece->coords[j].y = i / 5;
@@ -44,7 +44,20 @@ t_tetr	*ft_atributes(char *buff, int id)
 		}
 		i++;
 	}
+	ft_bzero(str, 20);
 	return (piece);
+}
+
+/*
+** Function to help ft_createtetr because too much line
+** Fits inside -- if (ft_ultimatechecker(str) == 0 --
+** Thx norminette :)
+*/
+
+int		ft_cleanandreturn0(char *str)
+{
+	ft_strdel(&str);
+	return (0);
 }
 
 /*
@@ -60,31 +73,30 @@ int		ft_createtetr(int fd, t_tetr **pieces)
 	char	*buff;
 
 	str = ft_strnew(20);
-	i = 0;
+	i = -1;
 	j = 0;
 	while (get_next_line(fd, &buff) > 0)
 	{
 		if (ft_strlen(buff) > 2 && (++j || 1))
 		{
 			ft_strcat(ft_strcat(str, buff), "\n");
-			if (j > 0 && j % 4 == 0)
+			if (j > 0 && j % 4 == 0 && (++i || 1))
 			{
 				if (ft_ultimatechecker(str) == 0)
-				{
-					ft_strdel(&str);
-					return (0);
-				}
+					return (ft_cleanandreturn0(str));
 				pieces[i] = ft_atributes(str, i + 1);
-				i++;
-				ft_bzero(str, 20);
 			}
 		}
 		ft_strdel(&buff);
 	}
-	pieces[i] = NULL;
+	pieces[i + 1] = NULL;
 	ft_strdel(&str);
 	return (i);
 }
+
+/*
+** Checks if the file is in valid format.
+*/
 
 int		ft_checklines(int fd)
 {
@@ -103,7 +115,7 @@ int		ft_checklines(int fd)
 			error = 1;
 		if (row == 5)
 			row = 0;
-		free(buff);
+		ft_strdel(&buff);
 	}
 	if (error == 1)
 		return (0);
@@ -112,6 +124,12 @@ int		ft_checklines(int fd)
 	return (1);
 }
 
+/*
+** Calls ft_checklines and ft_createtetr.
+** If file is ok, malloc to pieces.
+** Returns 1 if file and piece are ok and stored.
+*/
+
 int		ft_test_and_create(t_tetr **pieces, int fd1, int fd2)
 {
 	if (ft_checklines(fd1) == 0)
@@ -119,25 +137,4 @@ int		ft_test_and_create(t_tetr **pieces, int fd1, int fd2)
 	if (ft_createtetr(fd2, pieces) == 0)
 		return (0);
 	return (1);
-}
-
-void	ft_freeall(char **map, t_tetr **pieces)
-{
-	int i;
-
-	i = 0;
-	while (pieces[i])
-	{
-		free(pieces[i]->coords);
-		free(pieces[i]);
-		i++;
-	}
-	free(pieces);
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
 }
